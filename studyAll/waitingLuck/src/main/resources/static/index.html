@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>lucky-draw抽奖系统</title>
+    <link rel="stylesheet" type="text/css" href="./layui/css/layui.css"/>
+    <script src="./layui/layui.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+    <style>
+        body {
+            /*background: url("./11.jpg");*/
+            font-family: "楷体", "Times New Roman", Times, serif;
+        }
+
+        .main-title {
+            color: #36c76d;
+            font-size: 60px;
+            line-height: 70px;
+            font-weight: bold;
+            position: fixed;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            top: 15%;
+        }
+
+        .draw-level {
+            color: red;
+            font-size: 45px;
+            line-height: 55px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .draw-level-text {
+            color: #ffffff;
+            line-height: 20px;
+        }
+
+        #canvasOne {
+            background: rgba(255, 255, 255, 0);
+        }
+
+    </style>
+</head>
+<body>
+<script src="./js/js_modernizr.min.js"></script>
+<div style="text-align:center;margin-top: 10px;">
+    <canvas id="canvasOne" width="1600" height="900"></canvas>
+</div>
+<div class="header-container">
+    <h1 id="main-title" class="main-title">抽奖系统</h1>
+</div>
+<div class="result-div">
+    <div class="result-container">
+        <h4 class="result-header">恭喜以下人员中奖！！</h4>
+        <div class="staff-div staff-id-div">
+            <span id="staff-id-span">##</span>
+        </div>
+        <div class="staff-div staff-name-div">
+            <span id="staff-name-span">####</span>
+        </div>
+        <div class="staff-div staff-phone-div">
+            <span id="staff-phone-span">###########</span>
+        </div>
+    </div>
+</div>
+<div class="manual-container">
+    <h2 id="draw-level" class="draw-level">级别</h2>
+    <h4 id="draw-level-text" class="draw-level-text">剩余人员</h4>
+</div>
+
+<div class="side-container">
+    <button class="layui-btn" id="draw-start-btn" onclick="draw_start()"> S T A R T</button>
+    <button class="layui-btn" id="draw-end-btn" onclick="draw_end()" hidden> S T O P</button>
+    <button class="layui-btn" id="draw-next-btn" onclick="draw_next()" hidden>进入下一级</button>
+    <button class="layui-btn" onclick="show_draw_staff()">展示获奖信息</button>
+    <button class="layui-btn" onclick="on_reset_draw_staff()">重置获奖信息</button>
+</div>
+
+<div id="draw-staff-table-div" lay-filter="draw-staff-table-div" hidden>
+    <table id="draw-staff-table" class="layui-table" lay-filter="draw-staff-table"></table>
+</div>
+<script id="tableTool" type="text/html">
+    <button class="layui-btn layui-btn-sm" lay-event="del">删除</button>
+</script>
+<script src="./js/draw_canvas.js"></script>
+<script src="./js/draw_main.js"></script>
+<script type="text/javascript">
+    window.addEventListener("load", windowLoadHandler, false);
+    var sphereRad = 900;
+    var radius_sp = 0.5;
+    var opt_display_dots = false;
+    var staffNameList = []
+    var staffList = []
+    var speed = 1
+
+    function windowLoadHandler() {
+        // initCanvasSize()
+        $('.result-div').hide()
+        get_all_staff_name()
+        initTitle()
+        initDraw()
+        displayStaff(defaultStaff)
+        $('#draw-end-btn').hide()
+        $('#draw-next-btn').hide()
+        canvasApp();
+    }
+
+
+</script>
+
+
+</body>
+</html>

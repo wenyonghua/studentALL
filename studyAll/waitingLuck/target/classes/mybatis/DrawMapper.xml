@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waitig.mapper.IDrawMapper">
+    <select id="getOption" parameterType="map" resultType="com.waitig.entity.PCodeEntity">
+select id, type, code, value, name from ld_p_code where type = #{type}
+    </select>
+
+    <select id="getDrawInfo" resultType="com.waitig.entity.DrawLevelEntity">
+        select id,
+       level,
+       name,
+       description,
+       number,
+       (select count(1) from ld_d_draw_staff ldds where ldds.level = lpdl.level) drawNumber
+from ld_p_draw_level lpdl
+order by level desc
+    </select>
+
+    <select id="getDrawStaff" resultType="com.waitig.entity.DrawStaffEntity">
+select ldds.id,
+       ldds.level,
+       (select lpdl.name from ld_p_draw_level lpdl where lpdl.level = ldds.level) drawName,
+       ldds.staff_id    staffId,
+       lps.staff_name   staffName,
+       lps.staff_mobile staffMobile,
+       ldds.draw_time   drawTime
+from ld_p_staff lps,
+     ld_d_draw_staff ldds
+where lps.staff_id = ldds.staff_id
+order by drawTime desc
+    </select>
+
+    <select id="getNotDrawStaffList" resultType="com.waitig.entity.StaffEntity">
+        select id, staff_id staffId, staff_name staffName, staff_mobile staffMobile
+from ld_p_staff where staff_id not in (
+    select staff_id from ld_d_draw_staff
+    )
+    </select>
+
+    <insert id="addDrawStaff" parameterType="com.waitig.entity.DrawStaffEntity">
+        insert into ld_d_draw_staff(level, staff_id) VALUE (#{level},#{staffId})
+    </insert>
+
+    <insert id="archiveDrawStaffLog">
+        insert into ld_h_draw_staff_log(level, staff_id, draw_time) select level,staff_id,draw_time from ld_d_draw_staff
+    </insert>
+
+    <delete id="delDrawStaff">
+        truncate ld_d_draw_staff
+    </delete>
+
+    <select id="getAllStaff" resultType="com.waitig.entity.StaffEntity">
+        select id, staff_id staffId, staff_name staffName, staff_mobile staffMobile
+from ld_p_staff
+    </select>
+
+    <delete id="delDrawStaffByStaff" parameterType="com.waitig.entity.DrawStaffEntity">
+        delete from ld_d_draw_staff where staff_id = #{staffId}
+    </delete>
+
+</mapper>
