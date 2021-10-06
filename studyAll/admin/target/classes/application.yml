@@ -1,4 +1,29 @@
+server:
+  port: 9081
+  tomcat:
+    uri-encoding: UTF-8
+
+
+
+
 spring:
+  resources:
+    static-locations: classpath:/static/
+  devtools:
+    restart:
+      additional-paths: resources/**,static/**,templates/**
+      enabled: true
+  thymeleaf:
+    #    prefix: classpath:/templates
+    #    suffix: .html
+    #    mode: HTML5
+    #    encoding: UTF-8
+    #    servlet:
+    #      content-type: text/html
+    cache: false
+  application:
+    name: article
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/luck_draw?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
@@ -9,9 +34,3 @@ spring:
     host: 127.0.0.1
     timeout: 100000
     password: 123456
-
-mybatis:
-  mapper-locations: classpath:/mybatis/**.xml
-
-server:
-  port: 8181

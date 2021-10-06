@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/studyAll/admin/admin.iml" filepath="$PROJECT_DIR$/studyAll/admin/admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/studyAll/springboottemplates/springboottemplates.iml" filepath="$PROJECT_DIR$/studyAll/springboottemplates/springboottemplates.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/studentALL.iml" filepath="$PROJECT_DIR$/.idea/studentALL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/studyAll/studyAll.iml" filepath="$PROJECT_DIR$/studyAll/studyAll.iml" />
+      <module fileurl="file://$PROJECT_DIR$/studyAll/waitingLuck/waitingLuck.iml" filepath="$PROJECT_DIR$/studyAll/waitingLuck/waitingLuck.iml" />
+    </modules>
+  </component>
+</project>

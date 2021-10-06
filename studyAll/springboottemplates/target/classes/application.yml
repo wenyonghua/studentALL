@@ -1,0 +1,82 @@
+http:
+  encoding:
+    charset: UTF-8
+    enabled: true
+    force: true
+
+server:
+  port: 8889
+  tomcat:
+    uri-encoding: UTF-8
+#  servlet:
+#    jsp:
+#      init-parameters:
+#        development = true
+spring:
+  resources:
+    static-locations: classpath:/static/
+  devtools:
+    restart:
+      additional-paths: resources/**,static/**,templates/**
+      enabled: true
+  thymeleaf:
+#    prefix: classpath:/templates
+#    suffix: .html
+#    mode: HTML5
+#    encoding: UTF-8
+#    servlet:
+#      content-type: text/html
+    cache: false
+  application:
+    name: article
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/learn?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    username: root
+    password: edwards
+    type: com.alibaba.druid.pool.DruidDataSource
+    #    ��ʼ������
+    initialSize: 50
+    #    ������� ��
+    maxActive: 200
+    #    ��ȴ�ʱ��
+    maxWait: 60000
+    #    ���ӳ��еĿ�������5���Ӻ󱻻���
+      #    ������С����
+    minIdle: 20
+      #    ÿ��60������һ�ο������ӻ�����
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    #    ��֤ʹ�õ�sql���
+    validationQuery: SELECT 1 FROM DUAL
+    #    ������ӱ��������ӻ��������м��飬�������ʧ�ܣ������򱻴ӳ���ȥ��
+    testWhileIdle: true
+    #    �������ʱ������  trueΪ���ԣ��ݰٶ�˵��Ӱ�����ܣ�
+    testOnBorrow: false
+    #   �²������Ƿ񷵻ز��Խ�������ظ����Եȣ�Ϊ�����ܲ�������
+    testOnReturn: false
+    #    �����α꣬�Ż���ѯЧ��
+    poolPreparedStatements: true
+    #   ���ü��ͳ�����ص�filters��ȥ�����ؽ���sql�޷�ͳ�ƣ�'wall'���ڷ���ǽ
+    #    �����������ַ�����ͨ�������ķ�ʽ������չ��������õĲ���У�
+    #    ���ͳ���õ�filter:stat��־�õ�filter:log4j����sqlע���filter:wall
+    filters: stat,wall,log4j
+    #    ������0ʱ��poolPreparedStatements�Զ������޸�Ϊtrue��
+    #    ��Druid�У��������Oracle��PSCacheռ���ڴ��������⣬���԰������ֵ���ô�һЩ������˵100
+    maxPoolPreparedStatementPerConnectionSize: 20
+    #    �ϲ����DruidDataSource�ļ������
+    useGlobalDataSourceStat: true
+    #    ͨ��connectProperties��������mergeSql���ܣ���SQL��¼
+    #    ������Դ�����ӵĽ������Ŀ���ִ�в��롢���»�ɾ�����������磬��������һ�������ҵ��Ĳ�����һ�����в��롢���»�ɾ���У�
+    #    ���Զ����������ͬ������,ͨ��������������ǿ��Կ���Merge�ǹ��ڶ���������֮������ݽ��в�����
+    #    �������Ϊ�������֮�������ͬ����
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #      �Զ������շ�ת��
+  configuration:
+    map-underscore-to-camel-case: true

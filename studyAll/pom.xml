@@ -91,6 +91,11 @@
             <artifactId>jedis</artifactId>
         </dependency>
 
+        <dependency><!--thymeleaf插件-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
         <!--<dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
