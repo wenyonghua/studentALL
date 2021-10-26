@@ -79,6 +79,7 @@ public class RechargeController {
 	@PostMapping("/addOrUpdatePayType")
 	@ResponseBody
 	public Result addOrUpdatePayType(@RequestBody AddOrUpdatePayTypeParam param) {
+	System.out.println("商户号+"+param.getMerchantNum());
 		payChannelService.addOrUpdatePayType(param);
 		return Result.success();
 	}

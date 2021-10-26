@@ -155,7 +155,11 @@ public class PageController {
 	public String appealDetails() {
 		return "appeal-details";
 	}
-	
+
+	/**
+	 * 渠道类型
+	 * @return
+	 */
 	@GetMapping("/pay-channel")
 	public String payChannel() {
 		return "pay-channel";

@@ -172,6 +172,7 @@
 						<th>支付类型名称</th>
 						<th>是否属于银行卡入款</th>
 						<th>排序号</th>
+						<th>商户号</th>
 						<th>是否启用</th>
 						<th>操作</th>
 					</tr>
@@ -182,6 +183,7 @@
 						<td>{{payType.name}}</td>
 						<td>{{payType.bankCardFlag ? '是' : '不是'}}</td>
 						<td>{{payType.orderNo}}</td>
+						<td>{{payType.merchantNum}}</td>
 						<td>{{payType.enabled ? '启用' : '禁用'}}</td>
 						<td>
 							<button type="button" class="btn btn-outline-success btn-sm" v-on:click="showEditPayTypeModal(payType.id)">编辑</button>
@@ -223,6 +225,12 @@
 											</select>
 										</div>
 									</div>
+									<div class="form-group row">
+										<div class="col-sm-12">
+											<label>商户号:</label> <input type="text" class="form-control" v-model="editPayType.merchantNum">
+										</div>
+									</div>
+
 									<div class="form-group row">
 										<div class="col-sm-6">
 											<label>排序号:</label> <input type="number" class="form-control" v-model="editPayType.orderNo">
