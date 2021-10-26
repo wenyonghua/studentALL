@@ -9,6 +9,9 @@
         <option value="$PROJECT_DIR$/studyAll/admin/pom.xml" />
         <option value="$PROJECT_DIR$/studyAll/pom.xml" />
         <option value="$PROJECT_DIR$/studyAll/springboottemplates/pom.xml" />
+        <option value="$PROJECT_DIR$/studyAll/runscore-merchant/pom.xml" />
+        <option value="$PROJECT_DIR$/studyAll/runscore-api/pom.xml" />
+        <option value="$PROJECT_DIR$/studyAll/runscore-admin/pom.xml" />
       </list>
     </option>
   </component>

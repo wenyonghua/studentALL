@@ -17,8 +17,16 @@
     <modules>
         <module>waitingLuck</module><!-- 抽奖系统、模块 -->
         <module>admin</module>
+        <module>runscore-api</module>
+        <module>runscore-merchant</module>
     </modules>
-
+    <!-- 版 本 管 理 -->
+    <properties>
+        <!-- Swagger 版 本 -->
+        <swagger.version>2.9.2</swagger.version>
+        <!-- Lombok 版 本 -->
+        <lombok.version>1.18.12</lombok.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -96,6 +104,20 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!-- 接 口 文 档 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
         <!--<dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -110,5 +132,22 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+            <!-- 加 载 .Java 下 的 XML 文 件 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- 加 载 .Java 下 的 XML 文 件 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
     </build>
 </project>
