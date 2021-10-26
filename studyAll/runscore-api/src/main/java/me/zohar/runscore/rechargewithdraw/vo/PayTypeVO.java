@@ -26,6 +26,10 @@ public class PayTypeVO {
 	private Double orderNo;
 	
 	private Boolean enabled;
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
 
 	public static List<PayTypeVO> convertFor(List<PayType> payTypes) {
 		if (CollectionUtil.isEmpty(payTypes)) {

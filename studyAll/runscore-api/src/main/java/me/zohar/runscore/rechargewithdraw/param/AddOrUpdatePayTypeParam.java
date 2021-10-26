@@ -38,6 +38,10 @@ public class AddOrUpdatePayTypeParam {
 	 */
 	@NotNull
 	private Boolean enabled;
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
 
 	public PayType convertToPo() {
 		PayType po = new PayType();

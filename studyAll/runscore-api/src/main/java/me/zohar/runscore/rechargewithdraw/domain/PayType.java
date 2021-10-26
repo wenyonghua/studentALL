@@ -54,6 +54,10 @@ public class PayType {
 	private Boolean enabled;
 	
 	private Date createTime;
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
 
 	/**
 	 * 乐观锁版本号
