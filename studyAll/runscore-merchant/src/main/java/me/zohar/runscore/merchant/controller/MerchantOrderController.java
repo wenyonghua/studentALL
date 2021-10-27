@@ -76,7 +76,7 @@ public class MerchantOrderController {
 		//MerchantAccountDetails user = (MerchantAccountDetails) SecurityContextHolder.getContext().getAuthentication()
 			//	.getPrincipal();
 		//param.setMerchantNum(user.getMerchantNum());//商户号
-		platformOrderService.manualStartOrder(param);
-		return Result.success();
+		Result result=platformOrderService.outstartOrder(param);
+		return result;
 	}
 }

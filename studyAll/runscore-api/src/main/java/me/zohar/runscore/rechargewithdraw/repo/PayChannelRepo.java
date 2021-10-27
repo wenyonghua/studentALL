@@ -11,4 +11,6 @@ public interface PayChannelRepo extends JpaRepository<PayChannel, String>, JpaSp
 
 	List<PayChannel> findByEnabledIsTrueOrderByOrderNoAsc();
 
+	List<PayChannel> findByPayTypeId(String payTypeId);//通过payTypeId 查询payChannel渠道数据获取银行卡
+
 }

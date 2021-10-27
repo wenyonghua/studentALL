@@ -1,5 +1,7 @@
 package me.zohar.runscore.common.vo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -44,6 +46,16 @@ public class Result implements Serializable {
 		result.setSuccess(true);
 		result.setCode(200);
 		result.setMsg("success");
+		return result;
+	}
+
+
+	public static Result success(JSONObject data) {
+		Result result = new Result();
+		result.setSuccess(true);
+		result.setCode(200);
+		result.setMsg("success");
+		result.setData(data);
 		return result;
 	}
 

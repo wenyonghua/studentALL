@@ -25,6 +25,7 @@ public interface MerchantOrderRepo
 	MerchantOrder findByIdAndMerchantId(String id, String merchantId);
 	
 	MerchantOrder findByOrderNo(String orderNo);
+
 	
 	List<MerchantOrder> findByOrderStateAndUsefulTimeLessThan(String orderState, Date usefulTime);
 

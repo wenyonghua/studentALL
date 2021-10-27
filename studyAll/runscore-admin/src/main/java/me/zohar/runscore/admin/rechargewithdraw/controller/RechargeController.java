@@ -75,7 +75,12 @@ public class RechargeController {
 	public Result findAllPayChannel() {
 		return Result.success().setData(payChannelService.findAllPayChannel());
 	}
-	
+
+	/**
+	 * 添加支付类型
+	 * @param param
+	 * @return
+	 */
 	@PostMapping("/addOrUpdatePayType")
 	@ResponseBody
 	public Result addOrUpdatePayType(@RequestBody AddOrUpdatePayTypeParam param) {

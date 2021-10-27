@@ -20,6 +20,12 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotBlank;
 
+import com.alibaba.fastjson.JSONObject;
+import me.zohar.runscore.common.vo.Result;
+import me.zohar.runscore.rechargewithdraw.domain.PayChannel;
+import me.zohar.runscore.rechargewithdraw.domain.PayType;
+import me.zohar.runscore.rechargewithdraw.repo.PayChannelRepo;
+import me.zohar.runscore.rechargewithdraw.repo.PayTypeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +35,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-
-import com.zengtengpeng.annotation.Lock;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateField;
@@ -110,6 +114,13 @@ public class MerchantOrderService {
 
 	@Autowired
 	private OrderRebateRepo orderRebateRepo;
+
+	@Autowired
+	private PayTypeRepo payTypeRepo;
+
+	@Autowired
+	private PayChannelRepo payChannelRepo;
+
 
 	@Transactional(readOnly = true)
 	public MerchantOrderDetailsVO findMerchantOrderDetailsById(@NotBlank String orderId) {
@@ -384,6 +395,12 @@ public class MerchantOrderService {
 			throw new BizException(BizError.商户未接入);
 		}
 		System.out.println(">>>>>>银行卡号="+merchant.getRelevanceAccount().getBankCardAccount());//银行卡号
+		PayType payType= payTypeRepo.findByAndMerchantNum(param.getMerchantNum());//根据商户号获取支付类型
+		System.out.println(payType.getId());
+
+		List<PayChannel> payChannelList=payChannelRepo.findByPayTypeId(payType.getId());//通过支付类型获取银行卡列表
+
+
 
 		String sign = param.getMerchantNum() + param.getOrderNo()
 				+ new DecimalFormat("###################.###########").format(param.getGatheringAmount())
@@ -404,6 +421,64 @@ public class MerchantOrderService {
 
 
 		return MerchantOrderVO.convertFor(merchantOrder);
+	}
+
+
+	/**
+	 * 外部接口调用
+	 * @param param
+	 * @return
+	 */
+	@ParamValid
+	@Transactional
+	public Result outstartOrder(ManualStartOrderParam param) {
+		Merchant merchant = merchantRepo.findByMerchantNum(param.getMerchantNum());//商户号查询商户商户关联的账号表user_account
+		if (merchant == null) {
+			throw new BizException(BizError.商户未接入);
+		}
+		System.out.println(">>>>>>银行卡号="+merchant.getRelevanceAccount().getBankCardAccount());//银行卡号
+		PayType payType= payTypeRepo.findByAndMerchantNum(param.getMerchantNum());//根据商户号获取支付类型
+		System.out.println(payType.getId());
+
+		List<PayChannel> payChannelList=payChannelRepo.findByPayTypeId(payType.getId());//通过支付类型获取银行卡列表
+if(payChannelList!=null){
+	for(PayChannel payChannel:payChannelList){
+	System.out.println("收款人名称="+payChannel.getAccountHolder());
+
+	}
+}
+
+
+
+		String sign = param.getMerchantNum() + param.getOrderNo()
+				+ new DecimalFormat("###################.###########").format(param.getGatheringAmount())
+				+ param.getNotifyUrl() + merchant.getSecretKey();
+		sign = new Digester(DigestAlgorithm.MD5).digestHex(sign);//md5加密
+		param.setSign(sign);
+
+		Integer orderEffectiveDuration = Constant.商户订单接单有效时长;
+		ReceiveOrderSetting setting = platformOrderSettingRepo.findTopByOrderByLatelyUpdateTime();
+		if (setting != null) {
+			orderEffectiveDuration = setting.getReceiveOrderEffectiveDuration();
+		}
+		MerchantOrder merchantOrder = param.convertToPo(merchant.getId(), orderEffectiveDuration);
+		MerchantOrderPayInfo payInfo = param.convertToPayInfoPo(merchantOrder.getId());
+		merchantOrder.setPayInfoId(payInfo.getId());
+		merchantOrderRepo.save(merchantOrder);//添加订单
+		merchantOrderPayInfoRepo.save(payInfo);//添加订单关系表
+
+		//JSONObject jsonObject=new JSONObject();
+		JSONObject jsonObjectData=new JSONObject();
+
+		jsonObjectData.put("bankName","中国银行");//银行名称
+		jsonObjectData.put("bankCardAccount","1244242");//银行账号
+		jsonObjectData.put("accountHolder","张三");//收款人姓名
+		jsonObjectData.put("account","1223");//银行随机码
+		jsonObjectData.put("urlpay","http://www.baidu.com");//返回商户到界面去
+
+		return Result.success(jsonObjectData);
+				//jsonObject.toJSONString();
+				//MerchantOrderVO.convertFor(merchantOrder);
 	}
 
 	/**
