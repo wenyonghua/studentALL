@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 
 import com.alibaba.fastjson.JSONObject;
@@ -431,24 +432,34 @@ public class MerchantOrderService {
 	 */
 	@ParamValid
 	@Transactional
-	public Result outstartOrder(ManualStartOrderParam param) {
+	public Result outstartOrder(ManualStartOrderParam param,HttpServletRequest request) {
+
 		Merchant merchant = merchantRepo.findByMerchantNum(param.getMerchantNum());//商户号查询商户商户关联的账号表user_account
 		if (merchant == null) {
 			throw new BizException(BizError.商户未接入);
 		}
 		System.out.println(">>>>>>银行卡号="+merchant.getRelevanceAccount().getBankCardAccount());//银行卡号
+		String ip=getRemortIP(request);
+		System.out.println(">>>>>>请求的IP="+ip);//银行卡号
+		if(!merchant.getIpWhitelist().contains(ip)){//ip不在白名单里面
+			throw new BizException(BizError.IP白名单不在商户里面);
+		}
+
 		PayType payType= payTypeRepo.findByAndMerchantNum(param.getMerchantNum());//根据商户号获取支付类型
+		if(payType == null){
+			throw new BizException(BizError.商户没有配置支付类型);
+		}
 		System.out.println(payType.getId());
+
 
 		List<PayChannel> payChannelList=payChannelRepo.findByPayTypeId(payType.getId());//通过支付类型获取银行卡列表
 if(payChannelList!=null){
 	for(PayChannel payChannel:payChannelList){
+		System.out.println("获取银行列="+payChannel.getAccountHolder());
 	System.out.println("收款人名称="+payChannel.getAccountHolder());
 
 	}
 }
-
-
 
 		String sign = param.getMerchantNum() + param.getOrderNo()
 				+ new DecimalFormat("###################.###########").format(param.getGatheringAmount())
@@ -467,7 +478,7 @@ if(payChannelList!=null){
 		merchantOrderRepo.save(merchantOrder);//添加订单
 		merchantOrderPayInfoRepo.save(payInfo);//添加订单关系表
 
-		//JSONObject jsonObject=new JSONObject();
+
 		JSONObject jsonObjectData=new JSONObject();
 
 		jsonObjectData.put("bankName","中国银行");//银行名称
@@ -822,5 +833,23 @@ if(payChannelList!=null){
 				result.getTotalElements());
 		return pageResult;
 	}
-
+	public String getRemortIP(HttpServletRequest request) {
+		if (request.getHeader("x-forwarded-for") == null) {
+			return request.getRemoteAddr();
+		}
+		return request.getHeader("x-forwarded-for");
+	}
+	public String getRemoteHost(javax.servlet.http.HttpServletRequest request){
+		String ip = request.getHeader("x-forwarded-for");
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+			ip = request.getRemoteAddr();
+		}
+		return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
+	}
 }

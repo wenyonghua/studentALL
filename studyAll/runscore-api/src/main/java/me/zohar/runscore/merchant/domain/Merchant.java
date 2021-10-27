@@ -65,6 +65,8 @@ public class Merchant {
 	 */
 	@Column(name = "relevance_account_id", length = 32)
 	private String relevanceAccountId;
+
+	private String ipWhitelist;//ip白名单
 	
 	/**
 	 * 乐观锁版本号

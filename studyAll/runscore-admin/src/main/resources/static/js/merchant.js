@@ -42,10 +42,10 @@ var platformVM = new Vue({
 				},
 				columns : [ {
 					field : 'merchantNum',
-					title : '商户号'
+					title : '商户号1'
 				}, {
 					field : 'name',
-					title : '商户名称'
+					title : '商户名称1'
 				}, {
 					field : 'secretKey',
 					title : '接入密钥'
@@ -55,17 +55,21 @@ var platformVM = new Vue({
 				}, {
 					field : 'relevanceAccountUserName',
 					title : '关联账号'
-				}, {
+				},{
+					field : 'ipWhitelist',
+					title : 'ip白名单列表'
+				}
+				, {
 					title : '操作',
 					formatter : function(value, row, index) {
 						return [ '<button type="button" class="platform-edit-btn btn btn-outline-primary btn-sm" style="margin-right: 4px;">编辑</button>', '<button type="button" class="del-platform-btn btn btn-outline-danger btn-sm">删除</button>' ].join('');
 					},
 					events : {
 						'click .platform-edit-btn' : function(event, value, row, index) {
-							that.showPlatformEditModal(row.id);
+							that.showPlatformEditModal(row.id);//编辑
 						},
 						'click .del-platform-btn' : function(event, value, row, index) {
-							that.delPlatform(row.id);
+							that.delPlatform(row.id);//删除
 						}
 					}
 				} ]

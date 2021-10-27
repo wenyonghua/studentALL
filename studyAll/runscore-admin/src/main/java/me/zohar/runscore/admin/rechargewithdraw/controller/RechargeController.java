@@ -31,6 +31,11 @@ public class RechargeController {
 	@Autowired
 	private PayChannelService payChannelService;
 
+	/**
+	 * 充值体现列表
+	 * @param param
+	 * @return
+	 */
 	@GetMapping("/findRechargeOrderByPage")
 	@ResponseBody
 	public Result findRechargeOrderByPage(RechargeOrderQueryCondParam param) {

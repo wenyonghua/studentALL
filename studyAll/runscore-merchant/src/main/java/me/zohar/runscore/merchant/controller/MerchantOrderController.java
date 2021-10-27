@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/merchantOrder")
 public class MerchantOrderController {
@@ -72,11 +74,14 @@ public class MerchantOrderController {
 	 */
 	@PostMapping("/outstartOrder")
 	@ResponseBody
-	public Result outstartOrder(ManualStartOrderParam param) {
+	public Result outstartOrder(ManualStartOrderParam param, HttpServletRequest request) {
+		//getRemortIP(request);
 		//MerchantAccountDetails user = (MerchantAccountDetails) SecurityContextHolder.getContext().getAuthentication()
 			//	.getPrincipal();
 		//param.setMerchantNum(user.getMerchantNum());//商户号
-		Result result=platformOrderService.outstartOrder(param);
+		Result result=platformOrderService.outstartOrder(param,request);
 		return result;
 	}
+
+
 }

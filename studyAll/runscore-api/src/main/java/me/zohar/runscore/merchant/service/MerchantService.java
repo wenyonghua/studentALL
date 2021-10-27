@@ -83,8 +83,8 @@ public class MerchantService {
 		// 新增
 		if (StrUtil.isBlank(param.getId())) {
 			Merchant merchant = param.convertToPo();
-			merchant.setRelevanceAccountId(relevanceAccount.getId());
-			merchantRepo.save(merchant);
+			merchant.setRelevanceAccountId(relevanceAccount.getId());//关联账号id
+			merchantRepo.save(merchant);//新增加
 		}
 		// 修改
 		else {

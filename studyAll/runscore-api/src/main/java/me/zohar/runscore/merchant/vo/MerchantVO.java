@@ -36,6 +36,7 @@ public class MerchantVO {
 	private Date createTime;
 
 	private String relevanceAccountUserName;
+	private String ipWhitelist;//ip白名单
 
 	public static List<MerchantVO> convertFor(List<Merchant> merchants) {
 		if (CollectionUtil.isEmpty(merchants)) {

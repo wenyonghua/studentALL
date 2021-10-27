@@ -253,7 +253,8 @@ public class RechargeService {
 			}
 		};
 		Page<RechargeOrder> result = rechargeOrderRepo.findAll(spec,
-				PageRequest.of(param.getPageNum() - 1, param.getPageSize(), Sort.by(Sort.Order.desc("submitTime"))));
+				PageRequest.of(param.getPageNum() - 1, param.getPageSize(), Sort.by(Sort.Order.desc("submitTime"))));//降序
+
 		PageResult<RechargeOrderVO> pageResult = new PageResult<>(RechargeOrderVO.convertFor(result.getContent()),
 				param.getPageNum(), param.getPageSize(), result.getTotalElements());
 		return pageResult;

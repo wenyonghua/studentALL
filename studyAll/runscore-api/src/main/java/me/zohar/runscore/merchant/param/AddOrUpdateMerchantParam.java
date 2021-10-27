@@ -27,6 +27,9 @@ public class AddOrUpdateMerchantParam {
 	@NotBlank
 	private String relevanceAccountUserName;//用户名称
 
+	private String ipWhitelist;//ip白名单
+
+
 	public Merchant convertToPo() {
 		Merchant po = new Merchant();
 		BeanUtils.copyProperties(this, po);

@@ -136,7 +136,7 @@ public class MerchantOrderVO {
 		if (StrUtil.isNotBlank(merchantOrder.getReceivedAccountId()) && merchantOrder.getReceivedAccount() != null) {
 			vo.setReceiverUserName(merchantOrder.getReceivedAccount().getUserName());
 		}
-		vo.setPayUrl(ConfigHolder.getConfigValue("merchantOrderPayUrl") + vo.getOrderNo());
+		vo.setPayUrl(ConfigHolder.getConfigValue("merchantOrderPayUrl") + vo.getOrderNo());//支付地址
 		//自己修改的方法
        // System.out.println("回调地址"+merchantOrder.getPayInfo().getNotifyUrl());
 		//vo.setPayUrl(merchantOrder.getPayInfo().getNotifyUrl());

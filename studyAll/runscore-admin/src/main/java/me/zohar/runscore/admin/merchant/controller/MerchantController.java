@@ -31,12 +31,22 @@ public class MerchantController {
 		return Result.success();
 	}
 
+	/**
+	 * 查看单个商户信息
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/findMerchantById")
 	@ResponseBody
 	public Result findPlatformById(String id) {
 		return Result.success().setData(merchantService.findPlatformById(id));
 	}
 
+	/**
+	 * 删除商户信息
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/delMerchantById")
 	@ResponseBody
 	public Result delPlatformById(String id) {
@@ -44,6 +54,11 @@ public class MerchantController {
 		return Result.success();
 	}
 
+	/**
+	 * 查询商户列表使用分页
+	 * @param param
+	 * @return
+	 */
 	@GetMapping("/findMerchantByPage")
 	@ResponseBody
 	public Result findPlatformOrderByPage(MerchantQueryCondParam param) {
