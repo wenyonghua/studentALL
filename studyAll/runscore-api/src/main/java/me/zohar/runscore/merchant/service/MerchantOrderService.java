@@ -335,10 +335,14 @@ public class MerchantOrderService {
 
 	@Transactional(readOnly = true)
 	public List<MyWaitReceivingOrderVO> findMyWaitReceivingOrder(@NotBlank String userAccountId) {
-		UserAccount userAccount = userAccountRepo.getOne(userAccountId);
+		UserAccount userAccount = userAccountRepo.getOne(userAccountId);//获取用户信息
+
 		List<GatheringCode> gatheringCodes = gatheringCodeRepo.findByUserAccountId(userAccountId);
 		if (CollectionUtil.isEmpty(gatheringCodes)) {
 			throw new BizException(BizError.未设置收款码无法接单);
+		}
+		if(userAccount.getCashDeposit().equals(0.00)){//保证金
+			throw new BizException(BizError.请配置保证金无法接单);
 		}
 		ReceiveOrderSetting merchantOrderSetting = platformOrderSettingRepo.findTopByOrderByLatelyUpdateTime();
 		if (merchantOrderSetting.getUnfixedGatheringCodeReceiveOrder()) {
@@ -351,7 +355,7 @@ public class MerchantOrderService {
 					.findTop10ByOrderStateAndGatheringAmountIsLessThanEqualAndGatheringChannelCodeInOrderBySubmitTimeDesc(
 							Constant.商户订单状态_等待接单, userAccount.getCashDeposit(),
 							new ArrayList<>(gatheringChannelCodeMap.keySet()));
-			return MyWaitReceivingOrderVO.convertFor(waitReceivingOrders);
+			return MyWaitReceivingOrderVO.convertFor(waitReceivingOrders);//保证金
 		}
 		Map<String, List<Double>> gatheringChannelCodeMap = new HashMap<>();
 		for (GatheringCode gatheringCode : gatheringCodes) {
@@ -453,11 +457,13 @@ public class MerchantOrderService {
 
 
 		List<PayChannel> payChannelList=payChannelRepo.findByPayTypeId(payType.getId());//通过支付类型获取银行卡列表
+		PayChannel payChannel=null;
 if(payChannelList!=null){
-	for(PayChannel payChannel:payChannelList){
-		System.out.println("获取银行列="+payChannel.getAccountHolder());
-	System.out.println("收款人名称="+payChannel.getAccountHolder());
-
+	for(PayChannel payChannelValue:payChannelList){
+		System.out.println("收款人开户人姓名="+payChannelValue.getAccountHolder());
+	    System.out.println("银行名称="+payChannelValue.getBankName());
+	    System.out.println("银行卡号="+payChannelValue.getBankCardAccount());
+		payChannel=payChannelValue;
 	}
 }
 
@@ -473,10 +479,18 @@ if(payChannelList!=null){
 			orderEffectiveDuration = setting.getReceiveOrderEffectiveDuration();
 		}
 		MerchantOrder merchantOrder = param.convertToPo(merchant.getId(), orderEffectiveDuration);
+		merchantOrder.setAccountHolder(payChannel.getAccountHolder());//收款人姓名
+		merchantOrder.setBankCardAccount(payChannel.getBankCardAccount());//卡号
+		merchantOrder.setBankName(payChannel.getBankName());//银行名称
+		merchantOrder.setCymbalCode("12345");//附言码
+
 		MerchantOrderPayInfo payInfo = param.convertToPayInfoPo(merchantOrder.getId());
-		merchantOrder.setPayInfoId(payInfo.getId());
+		merchantOrder.setPayInfoId(payInfo.getId());//设置payinfoid 号
+
+
 		merchantOrderRepo.save(merchantOrder);//添加订单
 		merchantOrderPayInfoRepo.save(payInfo);//添加订单关系表
+
 
 
 		JSONObject jsonObjectData=new JSONObject();
@@ -484,7 +498,7 @@ if(payChannelList!=null){
 		jsonObjectData.put("bankName","中国银行");//银行名称
 		jsonObjectData.put("bankCardAccount","1244242");//银行账号
 		jsonObjectData.put("accountHolder","张三");//收款人姓名
-		jsonObjectData.put("account","1223");//银行随机码
+		jsonObjectData.put("cymbalCode","1223");//银行随机码
 		jsonObjectData.put("urlpay","http://www.baidu.com");//返回商户到界面去
 
 		return Result.success(jsonObjectData);
@@ -607,6 +621,7 @@ if(payChannelList!=null){
 				PageRequest.of(param.getPageNum() - 1, param.getPageSize(), Sort.by(Sort.Order.desc("submitTime"))));
 		PageResult<MerchantOrderVO> pageResult = new PageResult<>(MerchantOrderVO.convertFor(result.getContent()),
 				param.getPageNum(), param.getPageSize(), result.getTotalElements());
+
 		return pageResult;
 	}
 

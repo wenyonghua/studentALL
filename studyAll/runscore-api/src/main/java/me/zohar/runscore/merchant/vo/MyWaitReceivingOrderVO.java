@@ -39,6 +39,23 @@ public class MyWaitReceivingOrderVO {
 	private Double gatheringAmount;
 
 	/**
+	 * 收款人姓名
+	 */
+	private String accountHolder;
+	/**
+	 * 收款卡号
+	 */
+	private String bankCardAccount;
+	/**
+	 * 银行名称
+	 */
+	private String bankName;
+	/**
+	 * 附言码
+	 */
+	private String cymbalCode;
+
+	/**
 	 * 提交时间
 	 */
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

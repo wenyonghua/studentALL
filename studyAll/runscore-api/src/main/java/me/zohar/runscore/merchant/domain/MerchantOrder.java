@@ -115,6 +115,25 @@ public class MerchantOrder {
 	 */
 	@Version
 	private Long version;
+	/**
+	 * 收款人姓名
+	 */
+	private String accountHolder;
+	/**
+	 * 收款卡号
+	 */
+	private String bankCardAccount;
+	/**
+	 * 银行名称
+	 */
+	private String bankName;
+	/**
+	 * 附言码
+	 */
+	private String cymbalCode;
+
+
+
 
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
