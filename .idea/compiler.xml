@@ -10,6 +10,7 @@
         <module name="runscore-admin" />
         <module name="runscore-api" />
         <module name="runscore-merchant" />
+        <module name="runscore-mobile" />
         <module name="admin" />
         <module name="waitingLuck" />
         <module name="springboottemplates" />
@@ -20,6 +21,7 @@
       <module name="runscore-admin" target="1.8" />
       <module name="runscore-api" target="1.8" />
       <module name="runscore-merchant" target="1.8" />
+      <module name="runscore-mobile" target="1.8" />
       <module name="springboottemplates" target="1.8" />
       <module name="studyAll" target="1.8" />
       <module name="waitingLuck" target="1.8" />
@@ -31,6 +33,7 @@
       <module name="runscore-admin" options="-parameters" />
       <module name="runscore-api" options="-parameters" />
       <module name="runscore-merchant" options="-parameters" />
+      <module name="runscore-mobile" options="-parameters" />
       <module name="springboottemplates" options="-parameters" />
       <module name="waitingLuck" options="-parameters" />
     </option>

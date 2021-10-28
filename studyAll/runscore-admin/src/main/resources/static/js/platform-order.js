@@ -125,6 +125,18 @@ var platformOrderVM = new Vue({
 					field : 'confirmTime',
 					title : '确认时间'
 				}, {
+					field : 'bankCardAccount',
+					title : '银行卡号'
+				},{
+					field : 'accountHolder',
+					title : '收款人姓名'
+				},{
+					field : 'bankName',
+					title : '银行名称'
+				},{
+					field : 'cymbalCode',
+					title : '附言码'
+				},{
 					title : '通知状态',
 					formatter : function(value, row, index, field) {
 						return row.payInfo.noticeStateName;
