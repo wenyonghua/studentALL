@@ -126,6 +126,9 @@ var platformOrderVM = new Vue({
 				columns : [ {
 					field : 'orderNo',
 					title : '订单号'
+				},{
+					field : 'outTradeNo',
+					title : '商户订单号'
 				}, {
 					field : 'orderStateName',
 					title : '订单状态'

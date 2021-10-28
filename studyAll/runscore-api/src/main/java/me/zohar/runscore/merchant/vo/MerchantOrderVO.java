@@ -126,6 +126,11 @@ public class MerchantOrderVO {
 	 */
 	private String cymbalCode;
 
+	/**
+	 * 外部订单号就是外部商户号
+	 */
+	private String outTradeNo;
+
 	private MerchantOrderPayInfoVO payInfo;
 
 	public static List<MerchantOrderVO> convertFor(List<MerchantOrder> platformOrders) {

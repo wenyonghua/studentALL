@@ -483,9 +483,11 @@ if(payChannelList!=null){
 		merchantOrder.setBankCardAccount(payChannel.getBankCardAccount());//卡号
 		merchantOrder.setBankName(payChannel.getBankName());//银行名称
 		merchantOrder.setCymbalCode("12345");//附言码
+		merchantOrder.setOutTradeNo(param.getOutTradeNo());//外部订单号
 
 		MerchantOrderPayInfo payInfo = param.convertToPayInfoPo(merchantOrder.getId());
 		merchantOrder.setPayInfoId(payInfo.getId());//设置payinfoid 号
+
 
 
 		merchantOrderRepo.save(merchantOrder);//添加订单
@@ -499,6 +501,7 @@ if(payChannelList!=null){
 		jsonObjectData.put("bankCardAccount","1244242");//银行账号
 		jsonObjectData.put("accountHolder","张三");//收款人姓名
 		jsonObjectData.put("cymbalCode","1223");//银行随机码
+		jsonObjectData.put("orderNo",merchantOrder.getId());//订单号
 		jsonObjectData.put("urlpay","http://www.baidu.com");//返回商户到界面去
 
 		return Result.success(jsonObjectData);

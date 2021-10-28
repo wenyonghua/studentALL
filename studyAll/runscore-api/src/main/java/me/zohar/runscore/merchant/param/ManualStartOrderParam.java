@@ -48,7 +48,6 @@ public class ManualStartOrderParam {
 	/**
 	 * 商户订单号
 	 */
-	@NotBlank
 	private String orderNo;
 
 	@NotBlank
@@ -60,15 +59,20 @@ public class ManualStartOrderParam {
 	private String attch;
 
 	private String sign;
+	/**
+	 * 外部订单号就是外部商户号
+	 */
+	@NotBlank
+	private String outTradeNo;
 
 	public MerchantOrder convertToPo(String merchantId, Integer orderEffectiveDuration) {
 		MerchantOrder po = new MerchantOrder();
 		BeanUtils.copyProperties(this, po);
 		po.setId(IdUtils.getId());
-		po.setOrderNo(po.getId());
+		po.setOrderNo(po.getId());//订单号
 		po.setSubmitTime(new Date());
 		po.setOrderState(Constant.商户订单状态_等待接单);
-		po.setMerchantId(merchantId);
+		po.setMerchantId(merchantId);//商户状态
 		po.setUsefulTime(DateUtil.offset(po.getSubmitTime(), DateField.MINUTE, orderEffectiveDuration));
 		return po;
 	}
@@ -76,11 +80,12 @@ public class ManualStartOrderParam {
 	public MerchantOrderPayInfo convertToPayInfoPo(String merchantOrderId) {
 		MerchantOrderPayInfo po = new MerchantOrderPayInfo();
 		BeanUtils.copyProperties(this, po);
-		po.setId(IdUtils.getId());
-		po.setMerchantOrderId(merchantOrderId);
+		po.setId(IdUtils.getId());//订单号
+		po.setMerchantOrderId(merchantOrderId);//订单号
 		po.setAmount(this.getGatheringAmount());
 		po.setPayType(this.getGatheringChannelCode());
 		po.setNoticeState(Constant.商户订单支付通知状态_未通知);
+		po.setOrderNo(this.outTradeNo);//外部订单号
 		return po;
 	}
 

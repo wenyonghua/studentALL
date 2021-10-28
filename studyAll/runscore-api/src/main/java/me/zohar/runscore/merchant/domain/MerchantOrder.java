@@ -132,7 +132,10 @@ public class MerchantOrder {
 	 */
 	private String cymbalCode;
 
-
+	/**
+	 * 外部订单号就是外部商户号
+	 */
+	private String outTradeNo;
 
 
 	@NotFound(action = NotFoundAction.IGNORE)
