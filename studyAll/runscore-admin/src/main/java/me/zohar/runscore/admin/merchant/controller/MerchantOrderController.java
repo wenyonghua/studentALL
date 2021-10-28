@@ -18,7 +18,7 @@ public class MerchantOrderController {
 	private MerchantOrderService platformOrderService;
 
 	/**
-	 * 查询商户订单
+	 * 查询商户订单列表
 	 * @param param
 	 * @return
 	 */
@@ -28,6 +28,11 @@ public class MerchantOrderController {
 		return Result.success().setData(platformOrderService.findMerchantOrderByPage(param));
 	}
 
+	/**
+	 * 取消订单
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/cancelOrder")
 	@ResponseBody
 	public Result cancelOrder(String id) {

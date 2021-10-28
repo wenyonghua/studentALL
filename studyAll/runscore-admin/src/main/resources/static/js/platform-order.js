@@ -101,7 +101,7 @@ var platformOrderVM = new Vue({
 					title : '商户订单号'
 				},{
 					field : 'platformName',
-					title : '商户'
+					title : '商户名称'
 				}, {
 					field : 'orderStateName',
 					title : '订单状态'

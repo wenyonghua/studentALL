@@ -585,22 +585,26 @@ if(payChannelList!=null){
 				List<Predicate> predicates = new ArrayList<Predicate>();
 				if (StrUtil.isNotBlank(param.getOrderNo())) {
 					predicates.add(builder.equal(root.get("orderNo"), param.getOrderNo()));
-				}
+				}//订单号
+				if (StrUtil.isNotBlank(param.getOutTradeNo())) {
+					predicates.add(builder.equal(root.get("outTradeNo"), param.getOutTradeNo()));
+				}//商户订单号
 
-				if (StrUtil.isNotBlank(param.getPlatformName())) {
+				if (StrUtil.isNotBlank(param.getPlatformName())) {//商户名称
 					predicates.add(
 							builder.equal(root.join("merchant", JoinType.INNER).get("name"), param.getPlatformName()));
 				}
 				if (StrUtil.isNotBlank(param.getGatheringChannelCode())) {
 					predicates.add(builder.equal(root.get("gatheringChannelCode"), param.getGatheringChannelCode()));
-				}
+				}//gatheringChannelCode 收款渠道
+
 				if (StrUtil.isNotBlank(param.getOrderState())) {
 					predicates.add(builder.equal(root.get("orderState"), param.getOrderState()));
-				}
+				}//订单状态
 				if (StrUtil.isNotBlank(param.getReceiverUserName())) {
 					predicates.add(builder.equal(root.join("userAccount", JoinType.INNER).get("userName"),
 							param.getReceiverUserName()));
-				}
+				}//接单人
 				if (param.getSubmitStartTime() != null) {
 					predicates.add(builder.greaterThanOrEqualTo(root.get("submitTime").as(Date.class),
 							DateUtil.beginOfDay(param.getSubmitStartTime())));
@@ -622,6 +626,7 @@ if(payChannelList!=null){
 		};
 		Page<MerchantOrder> result = merchantOrderRepo.findAll(spec,
 				PageRequest.of(param.getPageNum() - 1, param.getPageSize(), Sort.by(Sort.Order.desc("submitTime"))));
+
 		PageResult<MerchantOrderVO> pageResult = new PageResult<>(MerchantOrderVO.convertFor(result.getContent()),
 				param.getPageNum(), param.getPageSize(), result.getTotalElements());
 

@@ -2,6 +2,7 @@ var platformOrderVM = new Vue({
 	el : '#platform-order',
 	data : {
 		orderNo : '',
+		outTradeNo : '',
 		platformName : '',
 		gatheringChannelCode : '',
 		gatheringChannelDictItems : [],
@@ -69,6 +70,7 @@ var platformOrderVM = new Vue({
 						pageSize : params.pageSize,
 						pageNum : params.pageNumber,
 						orderNo : that.orderNo,
+						outTradeNo : that.outTradeNo,
 						platformName : that.platformName,
 						orderState : that.orderState,
 						gatheringChannelCode : that.gatheringChannelCode,
@@ -99,7 +101,7 @@ var platformOrderVM = new Vue({
 					title : '商户订单号'
 				},{
 					field : 'platformName',
-					title : '商户'
+					title : '商户名称'
 				}, {
 					field : 'orderStateName',
 					title : '订单状态'

@@ -2,6 +2,7 @@ var platformOrderVM = new Vue({
 	el : '#platform-order',
 	data : {
 		orderNo : '',
+		outTradeNo : '',
 		platformName : '',
 		gatheringChannelCode : '',
 		gatheringChannelDictItems : [],
@@ -101,6 +102,7 @@ var platformOrderVM = new Vue({
 						pageSize : params.pageSize,
 						pageNum : params.pageNumber,
 						orderNo : that.orderNo,
+						outTradeNo : that.outTradeNo,
 						platformName : that.platformName,
 						orderState : that.orderState,
 						gatheringChannelCode : that.gatheringChannelCode,

@@ -67,6 +67,11 @@ public class DictConfigController {
 		return Result.success().setData(dictService.findDictTypeByPage(param));
 	}
 
+	/**
+	 * 收款渠道
+	 * @param dictTypeCode
+	 * @return
+	 */
 	@GetMapping("/findDictItemInCache")
 	@ResponseBody
 	public Result findDictItemInCache(String dictTypeCode) {
