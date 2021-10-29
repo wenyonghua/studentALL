@@ -29,6 +29,11 @@ public class AddOrUpdateMerchantParam {
 
 	private String ipWhitelist;//ip白名单
 
+	/**
+	 * 费率
+	 */
+	private String rate;
+
 
 	public Merchant convertToPo() {
 		Merchant po = new Merchant();

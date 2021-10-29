@@ -67,6 +67,10 @@ public class Merchant {
 	private String relevanceAccountId;
 
 	private String ipWhitelist;//ip白名单
+	/**
+	 * 费率
+	 */
+	private String rate;
 	
 	/**
 	 * 乐观锁版本号

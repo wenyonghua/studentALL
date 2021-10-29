@@ -42,10 +42,10 @@ var platformVM = new Vue({
 				},
 				columns : [ {
 					field : 'merchantNum',
-					title : '商户号1'
+					title : '商户号'
 				}, {
 					field : 'name',
-					title : '商户名称1'
+					title : '商户名称'
 				}, {
 					field : 'secretKey',
 					title : '接入密钥'
@@ -58,6 +58,9 @@ var platformVM = new Vue({
 				},{
 					field : 'ipWhitelist',
 					title : 'ip白名单列表'
+				},{
+					field : 'rate',
+					title : '费率'
 				}
 				, {
 					title : '操作',

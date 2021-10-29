@@ -137,6 +137,19 @@ public class MerchantOrder {
 	 */
 	private String outTradeNo;
 
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
+	/**
+	 * 手续费
+	 */
+	private String serviceCharge;
+	/**
+	 * 净额
+	 */
+	private String netAmout;
+
 
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ManyToOne(fetch = FetchType.LAZY)
