@@ -1,5 +1,6 @@
 package me.zohar.runscore.merchant.service;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -484,6 +485,16 @@ if(payChannelList!=null){
 		merchantOrder.setBankName(payChannel.getBankName());//银行名称
 		merchantOrder.setCymbalCode("12345");//附言码
 		merchantOrder.setOutTradeNo(param.getOutTradeNo());//外部订单号
+		merchantOrder.setMerchantNum(param.getMerchantNum());//商户号
+
+
+		BigDecimal  bigDecimalAmount=new BigDecimal(param.getGatheringAmount());//订单金额
+		BigDecimal bigServiceCharge = bigDecimalAmount.multiply(new BigDecimal(merchant.getRate()));//手续费=订单金额*费率(0.1)
+		merchantOrder.setServiceCharge(bigServiceCharge.toString());//手续费=金额*费率
+		merchantOrder.setNetAmout(bigDecimalAmount.subtract(bigServiceCharge).toString());//净额=订单金额-手续费
+
+
+
 
 		MerchantOrderPayInfo payInfo = param.convertToPayInfoPo(merchantOrder.getId());
 		merchantOrder.setPayInfoId(payInfo.getId());//设置payinfoid 号

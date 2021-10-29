@@ -131,6 +131,19 @@ public class MerchantOrderVO {
 	 */
 	private String outTradeNo;
 
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
+	/**
+	 * 手续费
+	 */
+	private String serviceCharge;
+	/**
+	 * 净额
+	 */
+	private String netAmout;
+
 	private MerchantOrderPayInfoVO payInfo;
 
 	public static List<MerchantOrderVO> convertFor(List<MerchantOrder> platformOrders) {

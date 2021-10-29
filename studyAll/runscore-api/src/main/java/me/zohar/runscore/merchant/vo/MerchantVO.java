@@ -31,6 +31,10 @@ public class MerchantVO {
 	 * 密钥
 	 */
 	private String secretKey;
+	/**
+	 * 费率
+	 */
+	private String rate;
 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
