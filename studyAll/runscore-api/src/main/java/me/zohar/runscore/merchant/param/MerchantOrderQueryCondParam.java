@@ -58,4 +58,13 @@ public class MerchantOrderQueryCondParam extends PageParam {
 	 */
 	private String outTradeNo;
 
+	/**
+	 * 商户号
+	 */
+	private String merchantNum;
+	/**
+	 * 银行卡号
+	 */
+	private String bankCardAccount;
+
 }

@@ -600,6 +600,12 @@ if(payChannelList!=null){
 				if (StrUtil.isNotBlank(param.getOutTradeNo())) {
 					predicates.add(builder.equal(root.get("outTradeNo"), param.getOutTradeNo()));
 				}//商户订单号
+				if (StrUtil.isNotBlank(param.getMerchantNum())) {
+					predicates.add(builder.equal(root.get("merchantNum"), param.getMerchantNum()));
+				}//商户号
+				if (StrUtil.isNotBlank(param.getBankCardAccount())) {
+					predicates.add(builder.equal(root.get("bankCardAccount"), param.getBankCardAccount()));
+				}//银行卡号
 
 				if (StrUtil.isNotBlank(param.getPlatformName())) {//商户名称
 					predicates.add(
