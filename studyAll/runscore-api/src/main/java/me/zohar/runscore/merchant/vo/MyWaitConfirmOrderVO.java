@@ -60,6 +60,10 @@ public class MyWaitConfirmOrderVO {
 	 * 附言码
 	 */
 	private String cymbalCode;
+	/**
+	 * 商户订单号
+	 */
+	private String outTradeNo;
 
 	public static List<MyWaitConfirmOrderVO> convertFor(List<MerchantOrder> platformOrders) {
 		if (CollectionUtil.isEmpty(platformOrders)) {

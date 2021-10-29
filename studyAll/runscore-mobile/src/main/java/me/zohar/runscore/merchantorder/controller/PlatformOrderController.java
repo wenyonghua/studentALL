@@ -42,7 +42,7 @@ public class PlatformOrderController {
 	}
 
 	/**
-	 * 查询接口列表订单列表
+	 * 查询接口接单列表订单列表
 	 * @return
 	 */
 	@GetMapping("/findMyWaitReceivingOrder")

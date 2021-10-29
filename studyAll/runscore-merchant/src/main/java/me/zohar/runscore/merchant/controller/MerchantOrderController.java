@@ -2,6 +2,7 @@ package me.zohar.runscore.merchant.controller;
 
 import me.zohar.runscore.common.vo.Result;
 import me.zohar.runscore.config.security.MerchantAccountDetails;
+import me.zohar.runscore.dictconfig.DictHolder;
 import me.zohar.runscore.merchant.param.ManualStartOrderParam;
 import me.zohar.runscore.merchant.param.MerchantOrderQueryCondParam;
 import me.zohar.runscore.merchant.service.MerchantOrderService;
@@ -83,5 +84,17 @@ public class MerchantOrderController {
 		return result;
 	}
 
+
+
+	/**
+	 * 返回支付界面去
+	 * @param orderNo
+	 * @return
+	 */
+	@GetMapping("/pay")
+	public String pay(String orderNo) {
+
+		return "pay";
+	}
 
 }

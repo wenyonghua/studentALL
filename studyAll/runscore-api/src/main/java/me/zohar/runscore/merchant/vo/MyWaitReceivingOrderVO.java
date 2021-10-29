@@ -54,6 +54,10 @@ public class MyWaitReceivingOrderVO {
 	 * 附言码
 	 */
 	private String cymbalCode;
+	/**
+	 * 商户订单号
+	 */
+	private String outTradeNo;
 
 	/**
 	 * 提交时间
