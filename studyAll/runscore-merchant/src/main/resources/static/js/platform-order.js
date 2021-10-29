@@ -129,6 +129,9 @@ var platformOrderVM = new Vue({
 					field : 'orderNo',
 					title : '订单号'
 				},{
+					field : 'merchantNum',
+					title : '商户号'
+				},{
 					field : 'outTradeNo',
 					title : '商户订单号'
 				}, {
@@ -141,6 +144,15 @@ var platformOrderVM = new Vue({
 						return text;
 					}
 				}, {
+					field : 'serviceCharge',
+					title : '手续费'
+				},{
+					field : 'netAmout',
+					title : '净额'
+				},{
+					field : 'cymbalCode',
+					title : '附言码'
+				},{
 					title : '接单人/接单时间',
 					formatter : function(value, row, index, field) {
 						if (row.receiverUserName == null) {
