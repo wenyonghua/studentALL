@@ -34,19 +34,23 @@ var platformOrderVM = new Vue({
 	computed : {},
 	created : function() {
 	},
-	mounted : function() {
+	mounted : function() {//钩子函数去调用方法
 		var that = this;
-		that.loadGatheringChannelDictItem();
-		that.loadPlatformOrderStateDictItem();
+		that.loadGatheringChannelDictItem();//加载收款渠道字典项
+		that.loadPlatformOrderStateDictItem();//加载平台订单状态字典项
 		that.loadAppealTypeDictItem();
-		that.initTable();
+		that.initTable();//加载数据方法
+
+		// window.setInterval(function() {
+		// 	that.initTable();
+		// }, 8000);//8秒加载数据
 
 		$('.sreenshot').on('filebatchuploadsuccess', function(event, data) {
 			that.merchantSreenshotIds = data.response.data.join(',');
 			that.merchantStartAppealInner();
 		});
 	},
-	methods : {
+	methods : {//方法
 		/**
 		 * 加载收款渠道字典项
 		 */
@@ -66,6 +70,7 @@ var platformOrderVM = new Vue({
 		 */
 		loadPlatformOrderStateDictItem : function() {
 			var that = this;
+			that.platformOrderListAreaTipFlag = true;
 			that.$http.get('/dictconfig/findDictItemInCache', {
 				params : {
 					dictTypeCode : 'platformOrderState'
@@ -86,7 +91,7 @@ var platformOrderVM = new Vue({
 			});
 		},
 
-		initTable : function() {
+		initTable : function() {//加载主数据
 			var that = this;
 			$('.platform-order-table').bootstrapTable({
 				classes : 'table table-hover',
@@ -191,10 +196,10 @@ var platformOrderVM = new Vue({
 					},
 					events : {
 						'click .cancel-order-btn' : function(event, value, row, index) {
-							that.cancelOrder(row.id);
+							that.cancelOrder(row.id);//取消订单
 						},
 						'click .order-details-btn' : function(event, value, row, index) {
-							that.showOrderDetailsPage(row.id);
+							that.showOrderDetailsPage(row.id);//订单详情
 						},
 						'click .resend-notice-btn' : function(event, value, row, index) {
 							that.resendNotice(row.id);
@@ -204,10 +209,12 @@ var platformOrderVM = new Vue({
 			});
 		},
 
-		refreshTable : function() {
+		refreshTable : function() {//点击搜索按钮
+			alert("dsfssdfsdf");
 			$('.platform-order-table').bootstrapTable('refreshOptions', {
 				pageNumber : 1
 			});
+			setTimeout(function(){}, 2000);
 		},
 
 		resendNotice : function(id) {
@@ -237,7 +244,7 @@ var platformOrderVM = new Vue({
 			});
 		},
 
-		showAddOrderModal : function() {
+		showAddOrderModal : function() {//新增订单
 			this.showAddOrderFlag = true;
 			this.gatheringChannelCodeWithAddOrder = '';
 			this.gatheringAmountWithAddOrder = '';
@@ -289,7 +296,7 @@ var platformOrderVM = new Vue({
 				});
 				return;
 			}
-			that.$http.post('/merchantOrder/startOrder', {
+			that.$http.post('/merchantOrder/startOrder', {//添加订单
 				gatheringChannelCode : that.gatheringChannelCodeWithAddOrder,
 				gatheringAmount : that.gatheringAmountWithAddOrder,
 				orderNo : that.orderNoWithAddOrder,
@@ -309,7 +316,7 @@ var platformOrderVM = new Vue({
 			});
 		},
 
-		showOrderDetailsPage : function(orderId) {
+		showOrderDetailsPage : function(orderId) {//订单详情
 			var that = this;
 			that.$http.get('/merchantOrder/findMerchantOrderDetailsById', {
 				params : {

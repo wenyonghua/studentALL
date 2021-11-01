@@ -175,10 +175,10 @@ var platformOrderVM = new Vue({
 					},
 					events : {
 						'click .cancel-order-btn' : function(event, value, row, index) {
-							that.cancelOrder(row.id);
+							that.cancelOrder(row.id);//取消订单
 						},
 						'click .resend-notice-btn' : function(event, value, row, index) {
-							that.resendNotice(row.id);
+							that.resendNotice(row.id);//重新发送通知
 						}
 					}
 				} ]

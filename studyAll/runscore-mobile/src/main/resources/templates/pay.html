@@ -309,7 +309,8 @@ html, body {
 			},
 			computed : {},
 			created : function() {
-				var orderNo ="1454024321113522176"
+				var orderNo =
+						"1454024321113522176"
 						//this.getQueryString('orderNo');
 				alert("商户订单号="+orderNo);
 				if (orderNo == null || orderNo == '') {
@@ -333,9 +334,9 @@ html, body {
 						}
 					}).then(function(res) {
 						that.orderInfo = res.body.data;
-						if (that.orderInfo.orderState == '4') {
+						if (that.orderInfo.orderState == '4') {//已支付
 							that.paySuccessFlag = true;
-							that.toReturnUrl();
+							that.toReturnUrl();//调到支付界面去
 							return;
 						}
 						that.overdueFlag = !dayjs(that.orderInfo.usefulTime).isAfter(dayjs());
@@ -466,6 +467,7 @@ html, body {
 				getQueryString : function(name) {
 					var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
 					var r = window.location.search.substr(1).match(reg);
+					alert(r+"值");
 					if (r != null)
 						return unescape(r[2]);
 					return null;

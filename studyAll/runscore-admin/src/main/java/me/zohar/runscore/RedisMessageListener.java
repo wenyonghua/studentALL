@@ -32,8 +32,8 @@ public class RedisMessageListener {
 	@PostConstruct
 	public void init() {
 		System.out.println("默认初始这个方法》》》》》》");
-		//listenRechargeSettlement();
-		//listenPaidMerchantOrder();
+		listenRechargeSettlement();
+		listenPaidMerchantOrder();
 	}
 
 	public void listenRechargeSettlement() {

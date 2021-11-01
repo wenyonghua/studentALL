@@ -779,7 +779,7 @@ if(payChannelList!=null){
 			log.warn("商户订单支付已通知成功,无需重复通知;商户订单id为{}", merchantOrderId);
 			return Constant.商户订单通知成功返回值;
 		}
-		Merchant merchant = merchantRepo.findByMerchantNum(payInfo.getMerchantNum());
+		Merchant merchant = merchantRepo.findByMerchantNum(payInfo.getMerchantNum());//根据商户号查询商户
 		if (merchant == null) {
 			throw new BizException(BizError.商户未接入);
 		}
@@ -787,14 +787,16 @@ if(payChannelList!=null){
 		String sign = Constant.商户订单支付成功 + payInfo.getMerchantNum() + payInfo.getOrderNo()
 				+ new DecimalFormat("###################.###########").format(payInfo.getAmount())
 				+ merchant.getSecretKey();
-		sign = new Digester(DigestAlgorithm.MD5).digestHex(sign);
+		sign = new Digester(DigestAlgorithm.MD5).digestHex(sign);//状态+商户号+外部订单号+金额+秘钥
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("merchantNum", payInfo.getMerchantNum());
-		paramMap.put("orderNo", payInfo.getOrderNo());
+		paramMap.put("merchantNum", payInfo.getMerchantNum());//商户号
+		//paramMap.put("orderNo", payInfo.getOrderNo());//外部订单号
+		//outTradeNo
+		paramMap.put("outTradeNo", payInfo.getOrderNo());//外部订单号
 		paramMap.put("platformOrderNo", payInfo.getMerchantOrder().getOrderNo());
-		paramMap.put("amount", payInfo.getAmount());
-		paramMap.put("attch", payInfo.getAttch());
-		paramMap.put("state", Constant.商户订单支付成功);
+		paramMap.put("amount", payInfo.getAmount());//订单金额
+		//paramMap.put("attch", payInfo.getAttch());
+		paramMap.put("state", Constant.商户订单支付成功);//订单状态
 		paramMap.put("payTime",
 				DateUtil.format(payInfo.getMerchantOrder().getConfirmTime(), DatePattern.NORM_DATETIME_PATTERN));
 		paramMap.put("sign", sign);

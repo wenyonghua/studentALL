@@ -139,7 +139,7 @@ public class RechargeService {
 		rechargeOrder.settlement();
 		rechargeOrderRepo.save(rechargeOrder);
 		UserAccount userAccount = rechargeOrder.getUserAccount();
-		double cashDeposit = userAccount.getCashDeposit() + rechargeOrder.getActualPayAmount();
+		double cashDeposit = userAccount.getCashDeposit() + rechargeOrder.getActualPayAmount();//保证金+实际支付金额
 		userAccount.setCashDeposit(NumberUtil.round(cashDeposit, 4).doubleValue());
 		userAccountRepo.save(userAccount);
 		accountChangeLogRepo.save(AccountChangeLog.buildWithRecharge(userAccount, rechargeOrder));

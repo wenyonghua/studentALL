@@ -200,7 +200,7 @@
 			data : {
 				receiveOrderState : '',
 				waitReceivingOrders : [],
-				loadPlatformOrderInterval : null,
+				loadPlatformOrderInterval : null,//变量
 				platformOrderListAreaTipFlag : true,
 				platformOrderListAreaTip : '',
 			},
@@ -230,8 +230,8 @@
 					var that = this;
 					that.$http.get('/userAccount/getUserAccountInfo').then(function(res) {
 						that.receiveOrderState = res.body.data.receiveOrderState;
-						if (that.receiveOrderState == '1') {
-							that.loadPlatformOrder();
+						if (that.receiveOrderState == '1') {//用户在接单
+							that.loadPlatformOrder();//默认加载数据
 							that.loadPlatformOrderInterval = window.setInterval(function() {
 								that.loadPlatformOrder();
 							}, 6000);
@@ -242,7 +242,7 @@
 					});
 				},
 
-				loadPlatformOrder : function() {
+				loadPlatformOrder : function() {//每6秒加载数据拉取数据
 					var that = this;
 					that.platformOrderListAreaTipFlag = true;
 					that.platformOrderListAreaTip = '正在获取订单...';

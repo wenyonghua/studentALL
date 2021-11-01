@@ -333,7 +333,7 @@ html, body {
 						that.orderInfo = res.body.data;
 						if (that.orderInfo.orderState == '4') {
 							that.paySuccessFlag = true;
-							that.toReturnUrl();
+							that.toReturnUrl();//跳到成功界面去
 							return;
 						}
 						that.overdueFlag = !dayjs(that.orderInfo.usefulTime).isAfter(dayjs());
